@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e4288f6-62ea-4da8-be56-c8e11776f077" name="Default Changelist" comment="" />
+    <list default="true" id="0e4288f6-62ea-4da8-be56-c8e11776f077" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/hy/ssm/dao/ProvinceDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/hy/ssm/dao/ProvinceDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/spring/spring-dao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring/spring-dao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/hy/ssm/dao/ProvinceDAOTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/hy/ssm/dao/ProvinceDAOTest.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +72,7 @@
       <recent name="D:\ssm-web\ssm\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CityDAOTest.findByProvinceId">
+  <component name="RunManager" selected="JUnit.ProvinceDAOTest.findAll">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -224,9 +230,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CityDAOTest.findByProvinceId" />
-        <item itemvalue="JUnit.CityDAOTest.findAll" />
         <item itemvalue="JUnit.ProvinceDAOTest.findAll" />
+        <item itemvalue="JUnit.CityDAOTest.findAll" />
+        <item itemvalue="JUnit.CityDAOTest.findByProvinceId" />
         <item itemvalue="JUnit.StaffDAOTest.findAll" />
       </list>
     </recent_temporary>
@@ -239,7 +245,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598932341400</updated>
-      <workItem from="1598932342520" duration="12262000" />
+      <workItem from="1598932342520" duration="13145000" />
     </task>
     <servers />
   </component>
@@ -263,22 +269,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="659" y="379" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1080@0.0.1920.1080" timestamp="1598932380209" />
-    <state width="1867" height="574" key="GridCell.Tab.0.bottom" timestamp="1598947365172">
+    <state width="1867" height="573" key="GridCell.Tab.0.bottom" timestamp="1598948599206">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1867" height="574" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1598947365172" />
-    <state width="1867" height="574" key="GridCell.Tab.0.center" timestamp="1598947365171">
+    <state width="1867" height="573" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1598948599206" />
+    <state width="1867" height="573" key="GridCell.Tab.0.center" timestamp="1598948599206">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1867" height="574" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1598947365171" />
-    <state width="1867" height="574" key="GridCell.Tab.0.left" timestamp="1598947365171">
+    <state width="1867" height="573" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1598948599206" />
+    <state width="1867" height="573" key="GridCell.Tab.0.left" timestamp="1598948599206">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1867" height="574" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1598947365171" />
-    <state width="1867" height="574" key="GridCell.Tab.0.right" timestamp="1598947365172">
+    <state width="1867" height="573" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1598948599206" />
+    <state width="1867" height="573" key="GridCell.Tab.0.right" timestamp="1598948599206">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1867" height="574" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1598947365172" />
+    <state width="1867" height="573" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1598948599206" />
     <state width="1464" height="483" key="GridCell.Tab.1.bottom" timestamp="1598944165514">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
