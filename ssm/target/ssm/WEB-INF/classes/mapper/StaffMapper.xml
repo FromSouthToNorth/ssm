@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hy.ssm.dao.StaffDAO">
+
+    <select id="findAll" resultType="java.util.LinkedHashMap">
+        SELECT
+               s.id,
+               s.name,
+               s.age,
+               s.sex,
+               p.name province_name,
+               c.name city_name
+        FROM
+             t_staff s
+                 LEFT JOIN t_province p
+                     ON s.province_id = p.id
+        LEFT JOIN t_city c
+                ON s.city_id = c.id
+    </select>
+
+</mapper>

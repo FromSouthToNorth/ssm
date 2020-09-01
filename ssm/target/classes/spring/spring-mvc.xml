@@ -30,7 +30,7 @@
     </bean>
 
     <!-- 扫描web相关的bean -->
-    <context:component-scan base-package="com.hy.ssm.aip" />
+    <context:component-scan base-package="com.hy.ssm.api" />
 
     <!-- 接口跨域配置 -->
     <mvc:cors>
