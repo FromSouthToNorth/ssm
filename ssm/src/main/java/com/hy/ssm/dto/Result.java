@@ -1,13 +1,11 @@
 package com.hy.ssm.dto;
 
-import com.hy.ssm.enums.ResultEnums;
-
 /**
  * 封装json对象，所有返回结果都使用它
  */
 public class Result<T> {
 
-    private ResultEnums resultEnums;
+    private boolean success;
 
     private T       data;       // 成功时返回的数据
 
@@ -16,18 +14,14 @@ public class Result<T> {
     public Result() {
     }
 
-    public Result(ResultEnums resultEnums, String error) {
-        this.resultEnums = resultEnums;
-        this.error = error;
-    }
-
-    public Result(ResultEnums resultEnums, T data) {
-        this.resultEnums = resultEnums;
+    public Result(boolean success, T data) {
+        this.success = success;
         this.data = data;
     }
 
-    public ResultEnums getResultEnums() {
-        return resultEnums;
+    public Result(boolean success, String error) {
+        this.success = success;
+        this.error = error;
     }
 
     public T getData() {

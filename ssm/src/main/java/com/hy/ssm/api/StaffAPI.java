@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hy.ssm.dto.Result;
-import com.hy.ssm.enums.ResultEnums;
 import com.hy.ssm.service.StaffService;
 import com.hy.ssm.vo.StaffVO;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class StaffAPI {
         PageHelper.startPage(pageNum, 5);
         List<StaffVO> all = staffService.findAll();
         PageInfo<StaffVO> staffVOPageInfo = new PageInfo<>(all, 4);
-        Result result = new Result(ResultEnums.SUCCESS, staffVOPageInfo);
+        Result result = new Result(true, staffVOPageInfo);
         return JSON.toJSONString(result);
     }
 
