@@ -13,9 +13,6 @@ public class StaffDAOTest extends BaseTest {
 
     @Test
     public void findAll() {
-        for (Map<String, Object> stringObjectMap : staffDAO.findAll()) {
-            System.out.println(stringObjectMap);
-        }
     }
 
 }

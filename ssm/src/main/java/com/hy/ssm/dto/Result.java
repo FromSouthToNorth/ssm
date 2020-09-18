@@ -1,42 +1,148 @@
 package com.hy.ssm.dto;
 
+import com.hy.ssm.constant.HttpStatus;
+import com.hy.ssm.utils.StringUtils;
+
+import java.util.HashMap;
+
 /**
  * 封装json对象，所有返回结果都使用它
+ *
  */
-public class Result<T> {
+public class Result extends HashMap<String, Object> {
 
-    private boolean success;
+    private static final long serialVersionUID = 1L;
 
-    private T       data;       // 成功时返回的数据
+    /** 状态码 */
+    public static final String CODE_TAG = "code";
 
-    private String  error;      // 错误信息
+    /** 返回内容 */
+    public static final String MSG_TAG = "msg";
 
-    public Result() {
+    /** 数据对象 */
+    public static final String DATA_TAG = "data";
+
+    /**
+     * 初始化一个新创建的 Result 对象，使其表示一个空消息。
+     */
+    public Result()
+    {
     }
 
-    public Result(boolean success, T data) {
-        this.success = success;
-        this.data = data;
+    /**
+     * 初始化一个新创建的 Result 对象
+     *
+     * @param code 状态码
+     * @param msg 返回内容
+     */
+    public Result(int code, String msg)
+    {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+    }
+    /**
+     * 初始化一个新创建的 Result 对象
+     *
+     * @param code 状态码
+     * @param msg 返回内容
+     * @param data 数据对象
+     */
+    public Result(int code, String msg, Object data)
+    {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+        if (StringUtils.isNotNull(data))
+        {
+            super.put(DATA_TAG, data);
+        }
     }
 
-    public Result(boolean success, String error) {
-        this.success = success;
-        this.error = error;
+    /**
+     * 返回成功消息
+     *
+     * @return 成功消息
+     */
+    public static Result success()
+    {
+        return Result.success("操作成功");
     }
 
-    public T getData() {
-        return data;
+    /**
+     * 返回成功数据
+     *
+     * @return 成功消息
+     */
+    public static Result success(Object data)
+    {
+        return Result.success("操作成功", data);
     }
 
-    public void setData(T data) {
-        this.data = data;
+    /**
+     * 返回成功消息
+     *
+     * @param msg 返回内容
+     * @return 成功消息
+     */
+    public static Result success(String msg)
+    {
+        return Result.success(msg, null);
     }
 
-    public String getError() {
-        return error;
+    /**
+     * 返回成功消息
+     *
+     * @param msg 返回内容
+     * @param data 数据对象
+     * @return 成功消息
+     */
+    public static Result success(String msg, Object data)
+    {
+        return new Result(HttpStatus.SUCCESS, msg, data);
     }
 
-    public void setError(String error) {
-        this.error = error;
+    /**
+     * 返回错误消息
+     *
+     * @return
+     */
+    public static Result error()
+    {
+        return Result.error("操作失败");
     }
+
+    /**
+     * 返回错误消息
+     *
+     * @param msg 返回内容
+     * @return 警告消息
+     */
+    public static Result error(String msg)
+    {
+        return Result.error(msg, null);
+    }
+
+    /**
+     * 返回错误消息
+     *
+     * @param msg 返回内容
+     * @param data 数据对象
+     * @return 警告消息
+     */
+    public static Result error(String msg, Object data)
+    {
+        return new Result(HttpStatus.ERROR, msg, data);
+    }
+
+    /**
+     * 返回错误消息
+     *
+     * @param code 状态码
+     * @param msg 返回内容
+     * @return 警告消息
+     */
+    public static Result error(int code, String msg)
+    {
+        return new Result(code, msg, null);
+    }
+
 }
