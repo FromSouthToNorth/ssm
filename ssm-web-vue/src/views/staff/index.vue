@@ -64,17 +64,45 @@
         :total="total">
     </el-pagination>
     <!-- 添加或修改员工对话框 -->
-    <el-dialog :title="title" :visible.sync="dialogFormVisible" append-to-body>
+    <el-dialog :title="title" :visible.sync="dialogFormVisible" width="600px" append-to-body>
       <el-form :model="form">
-        <el-form-item label="活动名称" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域" :label-width="formLabelWidth">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="姓名" :label-width="formLabelWidth">
+              <el-input v-model="form.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="年龄" :label-width="formLabelWidth">
+              <el-input v-model="form.age" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" :label-width="formLabelWidth">
+              <el-select v-model="form.sex" placeholder="请选择">
+                <el-option label="男" value="男"></el-option>
+                <el-option label="女" value="女"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="所在省" :label-width="formLabelWidth">
+              <el-select v-model="form.provinceId" placeholder="请选择">
+
+              </el-select>
+            </el-form-item>
+            <el-form-item label="所在市" :label-width="formLabelWidth">
+              <el-select v-model="form.cityId" placeholder="请选择">
+
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-upload
+                class="avatar-uploader"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -102,8 +130,9 @@ export default {
       },
       form: {  },
       title: '',
-      formLabelWidth: '120px',
+      formLabelWidth: '80px',
       dialogFormVisible: false,
+      imageUrl: '',
     }
   },
   created() {
@@ -151,15 +180,44 @@ export default {
       this.queryParams.pageNum = val;
       this.getStaffList();
     },
+    handleAvatarSuccess() {
+
+    },
+    beforeAvatarUpload() {
+
+    }
   }
 }
 </script>
 
-<style scoped>
+<style>
 .home {
   margin-top: 40px;
   margin-left: auto;
   margin-right: auto;
   width: 880px;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.el-upload .avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>
