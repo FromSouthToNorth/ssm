@@ -25,8 +25,7 @@ public class Result extends HashMap<String, Object> {
     /**
      * 初始化一个新创建的 Result 对象，使其表示一个空消息。
      */
-    public Result()
-    {
+    public Result() {
     }
 
     /**
@@ -35,8 +34,7 @@ public class Result extends HashMap<String, Object> {
      * @param code 状态码
      * @param msg 返回内容
      */
-    public Result(int code, String msg)
-    {
+    public Result(int code, String msg) {
         super.put(CODE_TAG, code);
         super.put(MSG_TAG, msg);
     }
@@ -47,8 +45,7 @@ public class Result extends HashMap<String, Object> {
      * @param msg 返回内容
      * @param data 数据对象
      */
-    public Result(int code, String msg, Object data)
-    {
+    public Result(int code, String msg, Object data) {
         super.put(CODE_TAG, code);
         super.put(MSG_TAG, msg);
         if (StringUtils.isNotNull(data))

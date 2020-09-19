@@ -17,14 +17,12 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
     private static ApplicationContext applicationContext;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException
-    {
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         SpringUtils.beanFactory = beanFactory;
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
-    {
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         SpringUtils.applicationContext = applicationContext;
     }
 
@@ -37,8 +35,7 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
      *
      */
     @SuppressWarnings("unchecked")
-    public static <T> T getBean(String name) throws BeansException
-    {
+    public static <T> T getBean(String name) throws BeansException {
         return (T) beanFactory.getBean(name);
     }
 
@@ -50,8 +47,7 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
      * @throws org.springframework.beans.BeansException
      *
      */
-    public static <T> T getBean(Class<T> clz) throws BeansException
-    {
+    public static <T> T getBean(Class<T> clz) throws BeansException {
         T result = (T) beanFactory.getBean(clz);
         return result;
     }
@@ -75,8 +71,7 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
      * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
      *
      */
-    public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException
-    {
+    public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
         return beanFactory.isSingleton(name);
     }
 
@@ -86,8 +81,7 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
      * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
      *
      */
-    public static Class<?> getType(String name) throws NoSuchBeanDefinitionException
-    {
+    public static Class<?> getType(String name) throws NoSuchBeanDefinitionException {
         return beanFactory.getType(name);
     }
 
@@ -99,8 +93,7 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
      * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
      *
      */
-    public static String[] getAliases(String name) throws NoSuchBeanDefinitionException
-    {
+    public static String[] getAliases(String name) throws NoSuchBeanDefinitionException {
         return beanFactory.getAliases(name);
     }
 
@@ -131,8 +124,7 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
      *
      * @return 当前的环境配置
      */
-    public static String getActiveProfile()
-    {
+    public static String getActiveProfile() {
         final String[] activeProfiles = getActiveProfiles();
         return StringUtils.isNotEmpty(activeProfiles) ? activeProfiles[0] : null;
     }

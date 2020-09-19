@@ -20,6 +20,7 @@ public class StaffAPI extends BaseController {
     @GetMapping(value = "/staff/list", produces = {"application/json; charset=utf-8"})
     @ResponseBody
     public String getAllStaff(Staff staff) {
+        // 封装分页请求数据
         starPage();
         List<StaffVO> all = staffService.selectStaffList(staff);
         return JSON.toJSONString(getDataTable(all));

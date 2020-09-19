@@ -85,15 +85,13 @@ public class ServletUtils {
      * @return null
      */
     public static String renderString(HttpServletResponse response, String string) {
-        try
-        {
+        try {
             response.setStatus(200);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(string);
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -106,26 +104,22 @@ public class ServletUtils {
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
         String accept = request.getHeader("accept");
-        if (accept != null && accept.indexOf("application/json") != -1)
-        {
+        if (accept != null && accept.indexOf("application/json") != -1) {
             return true;
         }
 
         String xRequestedWith = request.getHeader("X-Requested-With");
-        if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1)
-        {
+        if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1) {
             return true;
         }
 
         String uri = request.getRequestURI();
-        if (StringUtils.inStringIgnoreCase(uri, ".json", ".xml"))
-        {
+        if (StringUtils.inStringIgnoreCase(uri, ".json", ".xml")) {
             return true;
         }
 
         String ajax = request.getParameter("__ajax");
-        if (StringUtils.inStringIgnoreCase(ajax, "json", "xml"))
-        {
+        if (StringUtils.inStringIgnoreCase(ajax, "json", "xml")) {
             return true;
         }
         return false;

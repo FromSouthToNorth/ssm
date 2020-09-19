@@ -21,10 +21,11 @@ public class PageDomain {
     private String isAsc = "asc";
 
     public String getOrderBy() {
-        if (StringUtils.isEmpty(orderByColumn))
-        {
+        // 判断一个字符串是否为空串
+        if (StringUtils.isEmpty(orderByColumn)) {
             return "";
         }
+        // 下划线转驼峰命名
         return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
     }
 
