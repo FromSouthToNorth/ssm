@@ -42,4 +42,12 @@ public class City {
         this.provinceId = provinceId;
     }
 
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", provinceId=" + provinceId +
+                '}';
+    }
 }

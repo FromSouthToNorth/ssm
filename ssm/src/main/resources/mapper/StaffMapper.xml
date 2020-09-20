@@ -42,5 +42,24 @@
             </if>
         </where>
     </select>
-
+    
+    <insert id="insertStaff" parameterType="Staff" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_staff(
+            <if test="id != null and id != 0">id,</if>
+            <if test="name != null and name != ''">`name`,</if>
+            <if test="age != null and age != 0">age,</if>
+            <if test="sex != null and sex != ''">sex,</if>
+            <if test="avatar != null and avatar != ''">avatar,</if>
+            <if test="provinceId != null and provinceId != 0">province_id,</if>
+            <if test="cityId != null and cityId != 0">city_id</if>
+        ) VALUES (
+            <if test="id != null and id != 0">#{id},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="age != null and age != 0">#{age},</if>
+            <if test="sex != null and sex != ''">#{sex},</if>
+            <if test="avatar != null and avatar != ''">#{avatar},</if>
+            <if test="provinceId != null and provinceId != 0">#{provinceId},</if>
+            <if test="cityId != null and cityId != 0">#{cityId}</if>
+        )
+    </insert>
 </mapper>

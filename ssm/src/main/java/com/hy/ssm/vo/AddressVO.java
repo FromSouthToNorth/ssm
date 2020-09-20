@@ -34,4 +34,12 @@ public class AddressVO {
     public void setCities(List<City> cities) {
         this.cities = cities;
     }
+
+    @Override
+    public String toString() {
+        return "AddressVO{" +
+                "province=" + province +
+                ", cities=" + cities +
+                '}';
+    }
 }

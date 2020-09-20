@@ -82,4 +82,16 @@ public class Staff {
         this.cityId = cityId;
     }
 
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", provinceId=" + provinceId +
+                ", cityId=" + cityId +
+                '}';
+    }
 }

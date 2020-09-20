@@ -10,4 +10,6 @@ public interface StaffDAO {
 
     List<StaffVO> selectStaffList(Staff staff);
 
+    int insertStaff(Staff staff);
+
 }

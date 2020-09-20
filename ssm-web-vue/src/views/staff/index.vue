@@ -51,7 +51,7 @@
         <template slot-scope="scope">
           <el-button size="min" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)">修改</el-button>
           <el-button size="min" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
-          <el-button size="min" type="text" icon="el-icon-upload" @click="handleCheck(scope.row)">上传头像</el-button>
+          <el-button size="min" type="text" icon="el-icon-upload" @click="handleUpdateAvatar(scope.row)">上传头像</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -79,13 +79,23 @@
           </el-select>
         </el-form-item>
         <el-form-item label="所在省" prop="provinceId">
-          <el-select v-model="form.provinceId" placeholder="请选择">
-
+          <el-select v-model="form.provinceId" placeholder="请选择" @change="getProvince">
+            <el-option
+                v-for="item in addressOptions"
+                :key="item.province.id"
+                :label="item.province.name"
+                :value="item.province.id">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="所在市" prop="cityId">
           <el-select v-model="form.cityId" placeholder="请选择">
-
+            <el-option
+                v-for="item in cityOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -113,7 +123,10 @@
 </template>
 
 <script>
-import { staffList } from "@/api/systrm/staffList";
+import {
+  staff,
+  addStaff,
+} from "@/api/systrm/staff";
 import { listAddress } from "@/api/systrm/address";
 
 export default {
@@ -122,6 +135,7 @@ export default {
     return {
       staffs: [  ],
       addressOptions: [  ],
+      cityOptions: [  ],
       loading: true,
       total: 0,
       pageSizes: [2, 6, 8],
@@ -174,16 +188,23 @@ export default {
     /** 查询员工列表 */
     getStaffList() {
       this.loading = true;
-      staffList(this.queryParams).then(response => {
+      staff(this.queryParams).then(response => {
         this.staffs = response.rows;
         this.total = response.total;
         this.loading = false;
       })
     },
+    getProvince(value) {
+      console.log(this.addressOptions)
+      for (let i =0; i < this.addressOptions.length; i++) {
+        if (this.addressOptions[i].province.id === value) {
+          this.cityOptions = this.addressOptions[i].cities
+        }
+      }
+     },
     getAddressList() {
       listAddress().then((response) => {
         this.addressOptions = response.data;
-        console.log(this.addressOptions);
       })
     },
     /** 添加员工 */
@@ -197,14 +218,15 @@ export default {
     handleUpdate(row) {
       this.title = '编辑员工'
       this.dialogFormVisible = true;
-      console.log(row)
+      this.form.id = row.id;
+      console.log(this.form.id)
     },
     /** 删除 */
     handleDelete(row) {
       console.log(row)
     },
     /** 查看 */
-    handleCheck(row) {
+    handleUpdateAvatar(row) {
       console.log(row)
       this.dialogUpdateAvatarVisible = true;
     },
@@ -237,8 +259,19 @@ export default {
     submitForm: function () {
       this.$refs["form"].validate((valid) => {
         if (valid) {
-          console.log(valid)
-          this.dialogFormVisible = false;
+          if (this.form.id !== undefined) {
+            console.log(valid)
+            this.dialogFormVisible = false;
+          } else {
+            console.log(this.form);
+            addStaff(this.form).then((response) => {
+              if (response.code === 200) {
+                this.msgSuccess("新增成功");
+                this.dialogFormVisible = false;
+                this.getStaffList();
+              }
+            });
+          }
         }
       })
     },

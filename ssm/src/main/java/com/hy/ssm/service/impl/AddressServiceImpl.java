@@ -22,11 +22,11 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<AddressVO> selectAddress() {
-
-        AddressVO addressVO = new AddressVO();
+        AddressVO addressVO;
         List<AddressVO> addressVOS = new ArrayList<>();
         List<Province> all = provinceDAO.findAll();
         for (Province province : all) {
+            addressVO = new AddressVO();
             addressVO.setProvince(province);
             addressVO.setCities(cityDAO.findByProvinceId(province.getId()));
             addressVOS.add(addressVO);

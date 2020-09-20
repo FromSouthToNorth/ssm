@@ -21,4 +21,11 @@ public class StaffServiceImpl implements StaffService {
     public List<StaffVO> selectStaffList(Staff staff) {
         return staffDAO.selectStaffList(staff);
     }
+
+    @Override
+    public int insertStaff(Staff staff) {
+        // 新增用户信息
+        int rows = staffDAO.insertStaff(staff);
+        return rows;
+    }
 }

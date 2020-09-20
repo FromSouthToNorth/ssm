@@ -1,6 +1,5 @@
 package com.hy.ssm.api;
 
-import com.alibaba.fastjson.JSON;
 import com.hy.ssm.core.controller.BaseController;
 import com.hy.ssm.dto.Result;
 import com.hy.ssm.service.AddressService;
@@ -18,11 +17,11 @@ public class AddressAPI extends BaseController {
     @Resource
     private AddressService addressService;
 
-    @GetMapping(value = "/address/list", produces = {"application/json; charset=utf-8"})
+    @GetMapping(value = "/address/list")
     @ResponseBody
-    public String addressList() {
+    public Result addressList() {
         List<AddressVO> addressVOS = addressService.selectAddress();
-        return JSON.toJSONString(Result.success(addressVOS));
+        return Result.success(addressVOS);
     }
 
 }
