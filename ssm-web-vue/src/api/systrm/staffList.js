@@ -8,3 +8,7 @@ export function staffList(query) {
     params: query
   })
 }
+
+export function addStaff() {
+
+}

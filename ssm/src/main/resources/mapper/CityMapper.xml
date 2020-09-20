@@ -4,14 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hy.ssm.dao.CityDAO">
 
-    <select id="findAll" resultType="java.util.LinkedHashMap">
+    <resultMap id="city" type="com.hy.ssm.entity.City">
+        <id     property="id"   column="id"   />
+        <result property="name" column="name" />
+        <result property="provinceId" column="province_id" />
+    </resultMap>
+
+    <select id="findAll" resultMap="city">
         SELECT
             id,
             `name`
         FROM t_city
     </select>
 
-    <select id="findByProvinceId" resultType="java.util.LinkedHashMap" parameterType="java.lang.Long">
+    <select id="findByProvinceId" resultMap="city" parameterType="java.lang.Long">
         SELECT
             id,
             `name`

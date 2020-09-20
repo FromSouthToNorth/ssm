@@ -9,10 +9,10 @@
         ></el-input>
       </el-col>
       <el-col :span="4">
-        <el-button type="primary" @click="search" icon="el-icon-search">搜索</el-button>
+        <el-button type="primary" @click="search" icon="el-icon-search" size="small">搜索</el-button>
       </el-col>
       <el-col :span="4">
-        <el-button type="success" @click="addStaff">添加员工</el-button>
+        <el-button type="success" @click="addStaff" size="small">添加员工</el-button>
       </el-col>
     </el-row>
     <el-table
@@ -51,7 +51,7 @@
         <template slot-scope="scope">
           <el-button size="min" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)">修改</el-button>
           <el-button size="min" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
-          <el-button size="min" type="text" icon="el-icon-view" @click="handleCheck(scope.row)">查看</el-button>
+          <el-button size="min" type="text" icon="el-icon-upload" @click="handleCheck(scope.row)">上传头像</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,75 +64,104 @@
         :total="total">
     </el-pagination>
     <!-- 添加或修改员工对话框 -->
-    <el-dialog :title="title" :visible.sync="dialogFormVisible" width="600px" append-to-body>
-      <el-form :model="form">
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="姓名" :label-width="formLabelWidth">
-              <el-input v-model="form.name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="年龄" :label-width="formLabelWidth">
-              <el-input v-model="form.age" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="性别" :label-width="formLabelWidth">
-              <el-select v-model="form.sex" placeholder="请选择">
-                <el-option label="男" value="男"></el-option>
-                <el-option label="女" value="女"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="所在省" :label-width="formLabelWidth">
-              <el-select v-model="form.provinceId" placeholder="请选择">
+    <el-dialog :title="title" :visible.sync="dialogFormVisible" width="320px" append-to-body>
+      <el-form :model="form" ref="form" :rules="rules" label-width="80px">
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="年龄" prop="age">
+          <el-input v-model.number="form.age" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-select v-model="form.sex" placeholder="请选择">
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="所在省" prop="provinceId">
+          <el-select v-model="form.provinceId" placeholder="请选择">
 
-              </el-select>
-            </el-form-item>
-            <el-form-item label="所在市" :label-width="formLabelWidth">
-              <el-select v-model="form.cityId" placeholder="请选择">
+          </el-select>
+        </el-form-item>
+        <el-form-item label="所在市" prop="cityId">
+          <el-select v-model="form.cityId" placeholder="请选择">
 
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-upload
-                class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload">
-              <img v-if="imageUrl" :src="imageUrl" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-col>
-        </el-row>
+          </el-select>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="上传头像" :visible.sync="dialogUpdateAvatarVisible" width="220px">
+      <el-upload
+          class="avatar-uploader"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogUpdateAvatarVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogUpdateAvatarVisible = false">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { staffList } from "@/api/staff/staffList";
+import { staffList } from "@/api/systrm/staffList";
+import { listAddress } from "@/api/systrm/address";
 
 export default {
   name: "staff",
   data() {
     return {
       staffs: [  ],
+      addressOptions: [  ],
       loading: true,
       total: 0,
       pageSizes: [2, 6, 8],
+      // 查询参数
       queryParams: {
         pageSize: 2,
         pageNum: 1,
         name: '',
       },
+      // 表单参数
       form: {  },
       title: '',
       formLabelWidth: '80px',
+      // 编辑员工对话框
       dialogFormVisible: false,
+      // 上传员工头像对话框
+      dialogUpdateAvatarVisible: false,
       imageUrl: '',
+      // 表单验证
+      rules: {
+        name: [
+          { required: true, message: "名称不能为空", trigger: "blur" },
+        ],
+        age: [
+          { required: true, message: "年龄不能为空" },
+          {
+            type: 'number',
+            message: "请输入正确的年龄",
+          }
+        ],
+        sex: [
+          { required: true, message: "性别不能为空", trigger: "blur" },
+        ],
+        provinceId: [
+          { required: true, message: "所在省不能为空", trigger: "blur" },
+        ],
+        cityId: [
+          { required: true, message: "所在市不能为空", trigger: "blur" },
+        ]
+      }
     }
   },
   created() {
@@ -151,10 +180,18 @@ export default {
         this.loading = false;
       })
     },
+    getAddressList() {
+      listAddress().then((response) => {
+        this.addressOptions = response.data;
+        console.log(this.addressOptions);
+      })
+    },
     /** 添加员工 */
     addStaff() {
+      this.reset();
       this.title = '添加员工'
       this.dialogFormVisible = true
+      this.getAddressList()
     },
     /** 编辑 */
     handleUpdate(row) {
@@ -169,6 +206,7 @@ export default {
     /** 查看 */
     handleCheck(row) {
       console.log(row)
+      this.dialogUpdateAvatarVisible = true;
     },
     /** 每页大小 */
     handleSizeChange(val) {
@@ -179,6 +217,30 @@ export default {
     handleCurrentChange(val) {
       this.queryParams.pageNum = val;
       this.getStaffList();
+    },
+    // 取消按钮
+    cancel() {
+      this.dialogFormVisible = false;
+      this.reset();
+    },
+    // 表单重置
+    reset() {
+      this.form ={
+        name: undefined,
+        age: undefined,
+        sex: undefined,
+        provinceId: undefined,
+        cityId: undefined,
+      }
+    },
+    /** 提交按钮 */
+    submitForm: function () {
+      this.$refs["form"].validate((valid) => {
+        if (valid) {
+          console.log(valid)
+          this.dialogFormVisible = false;
+        }
+      })
     },
     handleAvatarSuccess() {
 

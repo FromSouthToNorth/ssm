@@ -16,10 +16,6 @@ public class ProvinceDAOTest extends BaseTest {
 
     @Test
     public void findAll() {
-        PageHelper.startPage(1, 2);
-        List<Map<String, Object>> all = provinceDAO.findAll();
-        PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(all);
-        System.out.println(mapPageInfo);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.hy.ssm.dao;
 
+import com.hy.ssm.entity.City;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -7,8 +8,8 @@ import java.util.Map;
 
 public interface CityDAO {
 
-    List<Map<String, Object>> findAll();
+    List<City> findAll();
 
-    List<Map<String, Object>> findByProvinceId(@Param("id") Long id);
+    List<City> findByProvinceId(@Param("id") Long id);
 
 }
