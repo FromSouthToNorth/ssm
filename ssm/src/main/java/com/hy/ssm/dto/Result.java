@@ -48,8 +48,7 @@ public class Result extends HashMap<String, Object> {
     public Result(int code, String msg, Object data) {
         super.put(CODE_TAG, code);
         super.put(MSG_TAG, msg);
-        if (StringUtils.isNotNull(data))
-        {
+        if (StringUtils.isNotNull(data)) {
             super.put(DATA_TAG, data);
         }
     }
@@ -69,8 +68,7 @@ public class Result extends HashMap<String, Object> {
      *
      * @return 成功消息
      */
-    public static Result success(Object data)
-    {
+    public static Result success(Object data) {
         return Result.success("操作成功", data);
     }
 
@@ -92,8 +90,7 @@ public class Result extends HashMap<String, Object> {
      * @param data 数据对象
      * @return 成功消息
      */
-    public static Result success(String msg, Object data)
-    {
+    public static Result success(String msg, Object data) {
         return new Result(HttpStatus.SUCCESS, msg, data);
     }
 
