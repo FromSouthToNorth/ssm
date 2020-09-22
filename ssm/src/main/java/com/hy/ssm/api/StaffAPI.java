@@ -65,6 +65,9 @@ public class StaffAPI extends BaseController {
         return toAjax(staffService.updateStaff(staff));
     }
 
+    /**
+     * 删除用户
+     */
     @DeleteMapping("/{staffId}")
     @ResponseBody
     public Result delete(@PathVariable Long staffId) {
