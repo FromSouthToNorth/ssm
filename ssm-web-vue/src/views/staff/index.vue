@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <!-- 搜索框 -->
     <el-row :gutter="10">
       <el-col :span="8">
         <el-input
@@ -15,6 +16,7 @@
         <el-button type="success" @click="addStaff" size="small">添加员工</el-button>
       </el-col>
     </el-row>
+    <!-- 员工列表 -->
     <el-table
         :data="staffs"
         v-loading="loading"
@@ -55,6 +57,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页 -->
     <el-pagination
         v-show="total > 0"
         @size-change="handleSizeChange"
@@ -123,21 +126,33 @@
 </template>
 
 <script>
+/** 导入员工的api */
 import {
   staff,
-  addStaff, getStaff, updateStaff, deleteStaff,
+  addStaff,
+  getStaff,
+  updateStaff,
+  deleteStaff,
 } from "@/api/systrm/staff";
+
+/** 导入地址的api */
 import { listAddress } from "@/api/systrm/address";
 
 export default {
   name: "staff",
   data() {
     return {
+      // 员工列表
       staffs: [  ],
+      // 地址
       addressOptions: [  ],
+      // 市级地址
       cityOptions: [  ],
+      // 加载中遮罩层
       loading: true,
+      // 员工列表总数
       total: 0,
+      // 分页页面大小
       pageSizes: [2, 6, 8],
       // 查询参数
       queryParams: {
@@ -147,12 +162,13 @@ export default {
       },
       // 表单参数
       form: {  },
+      // 弹出层标题
       title: '',
-      formLabelWidth: '80px',
       // 编辑员工对话框
       dialogFormVisible: false,
       // 上传员工头像对话框
       dialogUpdateAvatarVisible: false,
+      // 头像 URL
       imageUrl: '',
       // 表单验证
       rules: {
@@ -260,12 +276,12 @@ export default {
       this.queryParams.pageNum = val;
       this.getStaffList();
     },
-    // 取消按钮
+    /** 取消按钮 */
     cancel() {
       this.dialogFormVisible = false;
       this.reset();
     },
-    // 表单重置
+    /** 表单重置 */
     reset() {
       this.form ={
         id: undefined,
