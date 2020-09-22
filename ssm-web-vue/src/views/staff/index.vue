@@ -46,8 +46,7 @@
       <el-table-column
           label="操作"
           align="center"
-          width="220px"
-      >
+          width="220px">
         <template slot-scope="scope">
           <el-button size="min" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)">修改</el-button>
           <el-button size="min" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
@@ -263,7 +262,6 @@ export default {
             console.log(valid)
             this.dialogFormVisible = false;
           } else {
-            console.log(this.form);
             addStaff(this.form).then((response) => {
               if (response.code === 200) {
                 this.msgSuccess("新增成功");

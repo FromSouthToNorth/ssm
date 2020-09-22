@@ -6,7 +6,6 @@ import com.hy.ssm.dto.Result;
 import com.hy.ssm.entity.Staff;
 import com.hy.ssm.service.StaffService;
 import com.hy.ssm.vo.StaffVO;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
