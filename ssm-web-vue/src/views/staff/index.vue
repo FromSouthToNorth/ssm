@@ -176,10 +176,11 @@ export default {
           { required: true, message: "名称不能为空", trigger: "blur" },
         ],
         age: [
-          { required: true, message: "年龄不能为空" },
+          { required: true, message: "年龄不能为空", trigger: 'blur' },
           {
             type: 'number',
             message: "请输入正确的年龄",
+            trigger: 'blur',
           }
         ],
         sex: [
@@ -196,6 +197,7 @@ export default {
   },
   created() {
     this.getStaffList();
+    this.getAddressList();
   },
   methods: {
     search() {
@@ -222,12 +224,11 @@ export default {
         this.addressOptions = response.data;
       })
     },
-    /** 添加员工 */
+    /** 添加员工按钮 */
     addStaff() {
       this.reset();
       this.title = '添加员工'
       this.dialogFormVisible = true
-      this.getAddressList()
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
