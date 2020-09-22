@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <!-- 搜索框 -->
     <el-row :gutter="10">
       <el-col :span="8">
         <el-input
@@ -15,6 +16,7 @@
         <el-button type="success" @click="addStaff" size="small">添加员工</el-button>
       </el-col>
     </el-row>
+    <!-- 员工列表 -->
     <el-table
         :data="staffs"
         v-loading="loading"
@@ -54,6 +56,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页 -->
     <el-pagination
         v-show="total > 0"
         @size-change="handleSizeChange"
@@ -122,21 +125,33 @@
 </template>
 
 <script>
+/** 导入员工的api */
 import {
   staff,
   addStaff,
+  getStaff,
+  updateStaff,
+  deleteStaff,
 } from "@/api/systrm/staff";
+
+/** 导入地址的api */
 import { listAddress } from "@/api/systrm/address";
 
 export default {
   name: "staff",
   data() {
     return {
+      // 员工列表
       staffs: [  ],
+      // 地址
       addressOptions: [  ],
+      // 市级地址
       cityOptions: [  ],
+      // 加载中遮罩层
       loading: true,
+      // 员工列表总数
       total: 0,
+      // 分页页面大小
       pageSizes: [2, 6, 8],
       // 查询参数
       queryParams: {
@@ -146,12 +161,13 @@ export default {
       },
       // 表单参数
       form: {  },
+      // 弹出层标题
       title: '',
-      formLabelWidth: '80px',
       // 编辑员工对话框
       dialogFormVisible: false,
       // 上传员工头像对话框
       dialogUpdateAvatarVisible: false,
+      // 头像 URL
       imageUrl: '',
       // 表单验证
       rules: {
@@ -159,10 +175,11 @@ export default {
           { required: true, message: "名称不能为空", trigger: "blur" },
         ],
         age: [
-          { required: true, message: "年龄不能为空" },
+          { required: true, message: "年龄不能为空", trigger: 'blur' },
           {
             type: 'number',
             message: "请输入正确的年龄",
+            trigger: 'blur',
           }
         ],
         sex: [
@@ -179,6 +196,7 @@ export default {
   },
   created() {
     this.getStaffList();
+    this.getAddressList();
   },
   methods: {
     search() {
@@ -194,7 +212,6 @@ export default {
       })
     },
     getProvince(value) {
-      console.log(this.addressOptions)
       for (let i =0; i < this.addressOptions.length; i++) {
         if (this.addressOptions[i].province.id === value) {
           this.cityOptions = this.addressOptions[i].cities
@@ -206,25 +223,45 @@ export default {
         this.addressOptions = response.data;
       })
     },
-    /** 添加员工 */
+    /** 添加员工按钮 */
     addStaff() {
       this.reset();
       this.title = '添加员工'
       this.dialogFormVisible = true
-      this.getAddressList()
     },
-    /** 编辑 */
+    /** 修改按钮操作 */
     handleUpdate(row) {
-      this.title = '编辑员工'
-      this.dialogFormVisible = true;
-      this.form.id = row.id;
-      console.log(this.form.id)
+      this.reset();
+      this.getAddressList();
+      const staffId = row.id;
+      getStaff(staffId).then((response) => {
+        console.log(response.data);
+        this.form = response.data;
+        this.title = '编辑员工';
+        this.getProvince(response.data.provinceId);
+        console.log(this.form.id);
+        this.dialogFormVisible = true;
+      })
     },
-    /** 删除 */
+    /** 删除按钮操作 */
     handleDelete(row) {
-      console.log(row)
+      const staffId = row.id;
+      this.$confirm(
+        '是否确认删除用户编号为"' + staffId + '"的数据项?',
+        "警告",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).then(function () {
+        return deleteStaff(staffId);
+      }).then(() => {
+        this.getStaffList();
+        this.msgSuccess("删除成功");
+      }).catch(function () {});
     },
-    /** 查看 */
+    /** 上传头像按钮操作 */
     handleUpdateAvatar(row) {
       console.log(row)
       this.dialogUpdateAvatarVisible = true;
@@ -239,14 +276,15 @@ export default {
       this.queryParams.pageNum = val;
       this.getStaffList();
     },
-    // 取消按钮
+    /** 取消按钮 */
     cancel() {
       this.dialogFormVisible = false;
       this.reset();
     },
-    // 表单重置
+    /** 表单重置 */
     reset() {
       this.form ={
+        id: undefined,
         name: undefined,
         age: undefined,
         sex: undefined,
@@ -259,8 +297,13 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id !== undefined) {
-            console.log(valid)
-            this.dialogFormVisible = false;
+            updateStaff(this.form).then((response) => {
+              if (response.code === 200) {
+                this.msgSuccess("修改成功");
+                this.dialogFormVisible = false;
+                this.getStaffList();
+              }
+            })
           } else {
             addStaff(this.form).then((response) => {
               if (response.code === 200) {

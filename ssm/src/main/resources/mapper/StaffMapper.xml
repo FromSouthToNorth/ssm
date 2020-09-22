@@ -13,6 +13,15 @@
         <result property="cityName"     column="city_name"      />
     </resultMap>
 
+    <resultMap id="StaffResult" type="com.hy.ssm.entity.Staff">
+        <id     property="id"   column="id" />
+        <result property="name" column="name" />
+        <result property="age"  column="age"  />
+        <result property="sex"  column="sex"  />
+        <result property="provinceId"   column="province_id" />
+        <result property="cityId"       column="city_id"    />
+    </resultMap>
+
     <select id="selectStaffList" resultMap="Staff" parameterType="Staff">
         SELECT
                s.id,
@@ -62,4 +71,27 @@
             <if test="cityId != null and cityId != 0">#{cityId}</if>
         )
     </insert>
+
+    <select id="selectStaffById" parameterType="Long" resultMap="StaffResult">
+        SELECT id, name, age, sex, province_id, city_id FROM t_staff
+        WHERE id = #{staffId}
+    </select>
+
+    <update id="updateStaff" parameterType="Staff">
+        UPDATE t_staff
+        <set>
+            <if test="id != null and id != 0">id = #{id},</if>
+            <if test="name != null and name != ''">`name` = #{name},</if>
+            <if test="age != null and age != 0">age = #{age},</if>
+            <if test="sex != null and sex != ''">sex = #{sex},</if>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
+            <if test="provinceId != null and provinceId != 0">province_id = #{provinceId},</if>
+            <if test="cityId != null and cityId != 0">city_id = #{cityId}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteStaffById" parameterType="Long">
+        DELETE FROM t_staff WHERE id = #{staffId}
+    </delete>
 </mapper>

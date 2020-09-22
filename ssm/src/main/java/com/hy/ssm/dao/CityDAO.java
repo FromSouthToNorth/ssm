@@ -10,6 +10,6 @@ public interface CityDAO {
 
     List<City> findAll();
 
-    List<City> findByProvinceId(@Param("id") Long id);
+    List<City> findByProvinceId(Long id);
 
 }

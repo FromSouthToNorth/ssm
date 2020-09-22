@@ -26,4 +26,19 @@ public class StaffServiceImpl implements StaffService {
         int rows = staffDAO.insertStaff(staff);
         return rows;
     }
+
+    @Override
+    public Staff selectStaffById(Long staffId) {
+        return staffDAO.selectStaffById(staffId);
+    }
+
+    @Override
+    public int updateStaff(Staff staff) {
+        return staffDAO.updateStaff(staff);
+    }
+
+    @Override
+    public int deleteStaffById(Long staffId) {
+        return staffDAO.deleteStaffById(staffId);
+    }
 }

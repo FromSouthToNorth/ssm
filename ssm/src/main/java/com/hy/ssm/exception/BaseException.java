@@ -30,8 +30,7 @@ public class BaseException extends RuntimeException {
      */
     private String defaultMessage;
 
-    public BaseException(String module, String code, Object[] args, String defaultMessage)
-    {
+    public BaseException(String module, String code, Object[] args, String defaultMessage) {
         this.module = module;
         this.code = code;
         this.args = args;
@@ -59,15 +58,12 @@ public class BaseException extends RuntimeException {
     }
 
     @Override
-    public String getMessage()
-    {
+    public String getMessage() {
         String message = null;
-        if (!StringUtils.isEmpty(code))
-        {
+        if (!StringUtils.isEmpty(code)) {
             message = MessageUtils.message(code, args);
         }
-        if (message == null)
-        {
+        if (message == null) {
             message = defaultMessage;
         }
         return message;

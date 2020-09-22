@@ -12,4 +12,10 @@ public interface StaffDAO {
 
     int insertStaff(Staff staff);
 
+    Staff selectStaffById(Long staffId);
+
+    int updateStaff(Staff staff);
+
+    int deleteStaffById(Long staffId);
+
 }
