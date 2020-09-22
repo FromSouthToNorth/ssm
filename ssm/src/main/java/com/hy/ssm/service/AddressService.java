@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface AddressService {
 
+    /**
+     * 查询地址
+     * @return
+     */
     List<AddressVO> selectAddress();
 
 }
