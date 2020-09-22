@@ -1,6 +1,7 @@
 package com.hy.ssm.service;
 
 import com.hy.ssm.BaseTest;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -13,5 +14,9 @@ public class AbstractContextControllerTests extends BaseTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @Test
+    public void test() {
+    }
 
 }

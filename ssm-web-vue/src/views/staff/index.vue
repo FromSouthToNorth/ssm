@@ -125,7 +125,7 @@
 <script>
 import {
   staff,
-  addStaff,
+  addStaff, getStaff, updateStaff, deleteStaff,
 } from "@/api/systrm/staff";
 import { listAddress } from "@/api/systrm/address";
 
@@ -195,7 +195,6 @@ export default {
       })
     },
     getProvince(value) {
-      console.log(this.addressOptions)
       for (let i =0; i < this.addressOptions.length; i++) {
         if (this.addressOptions[i].province.id === value) {
           this.cityOptions = this.addressOptions[i].cities
@@ -214,18 +213,39 @@ export default {
       this.dialogFormVisible = true
       this.getAddressList()
     },
-    /** 编辑 */
+    /** 修改按钮操作 */
     handleUpdate(row) {
-      this.title = '编辑员工'
-      this.dialogFormVisible = true;
-      this.form.id = row.id;
-      console.log(this.form.id)
+      this.reset();
+      this.getAddressList();
+      const staffId = row.id;
+      getStaff(staffId).then((response) => {
+        console.log(response.data);
+        this.form = response.data;
+        this.title = '编辑员工';
+        this.getProvince(response.data.provinceId);
+        console.log(this.form.id);
+        this.dialogFormVisible = true;
+      })
     },
-    /** 删除 */
+    /** 删除按钮操作 */
     handleDelete(row) {
-      console.log(row)
+      const staffId = row.id;
+      this.$confirm(
+        '是否确认删除用户编号为"' + staffId + '"的数据项?',
+        "警告",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).then(function () {
+        return deleteStaff(staffId);
+      }).then(() => {
+        this.getStaffList();
+        this.msgSuccess("删除成功");
+      }).catch(function () {});
     },
-    /** 查看 */
+    /** 上传头像按钮操作 */
     handleUpdateAvatar(row) {
       console.log(row)
       this.dialogUpdateAvatarVisible = true;
@@ -248,6 +268,7 @@ export default {
     // 表单重置
     reset() {
       this.form ={
+        id: undefined,
         name: undefined,
         age: undefined,
         sex: undefined,
@@ -260,8 +281,13 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id !== undefined) {
-            console.log(valid)
-            this.dialogFormVisible = false;
+            updateStaff(this.form).then((response) => {
+              if (response.code === 200) {
+                this.msgSuccess("修改成功");
+                this.dialogFormVisible = false;
+                this.getStaffList();
+              }
+            })
           } else {
             console.log(this.form);
             addStaff(this.form).then((response) => {

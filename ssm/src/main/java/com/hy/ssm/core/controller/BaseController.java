@@ -70,8 +70,7 @@ public class BaseController {
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected Result toAjax(int rows)
-    {
+    protected Result toAjax(int rows) {
         return rows > 0 ? Result.success() : Result.error();
     }
 
