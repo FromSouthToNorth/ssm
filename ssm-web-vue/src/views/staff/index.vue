@@ -109,7 +109,8 @@
     <el-dialog title="上传头像" :visible.sync="dialogUpdateAvatarVisible" width="220px">
       <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          accept=".jpg, .png"
+          :action="upload.url"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -117,8 +118,8 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogUpdateAvatarVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogUpdateAvatarVisible = false">确 定</el-button>
+        <el-button @click="upload.open = false">取 消</el-button>
+        <el-button type="primary" @click="upload.open  = false">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -161,6 +162,13 @@ export default {
       },
       // 表单参数
       form: {  },
+      // 上传
+      upload: {
+        open: false,
+        // 是否禁用
+        isUploading: false,
+        url: "http://localhost:8888/staff/updateAvatar",
+      },
       // 弹出层标题
       title: '',
       // 编辑员工对话框
