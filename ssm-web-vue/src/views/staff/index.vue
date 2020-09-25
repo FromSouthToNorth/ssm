@@ -106,40 +106,44 @@
         <el-button type="primary" @click="submitForm">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="上传头像" :visible.sync="dialogUpdateAvatarVisible" width="220px">
+    <el-dialog title="上传头像" :visible.sync="upload.open" width="220px">
       <el-upload
           class="avatar-uploader"
-          accept=".jpg, .png"
           :action="upload.url"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
+          :before-upload="beforeAvatarUpload"
+          :auto-upload="false">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       <div slot="footer" class="dialog-footer">
         <el-button @click="upload.open = false">取 消</el-button>
-        <el-button type="primary" @click="upload.open  = false">确 定</el-button>
+        <el-button type="primary" @click="submitFileForm">确 定</el-button>
       </div>
     </el-dialog>
+    <server></server>
   </div>
 </template>
 
 <script>
-/** 导入员工的api */
+/** 导入员工的 api */
 import {
   staff,
   addStaff,
   getStaff,
   updateStaff,
   deleteStaff,
-} from "@/api/systrm/staff";
+} from "@/api/system/staff";
 
-/** 导入地址的api */
-import { listAddress } from "@/api/systrm/address";
+/** 导入地址的 api */
+import { listAddress } from "@/api/system/address";
+import Server from "@/views/server/index";
+
 
 export default {
   name: "staff",
+  components: {Server},
   data() {
     return {
       // 员工列表
@@ -199,7 +203,8 @@ export default {
         cityId: [
           { required: true, message: "所在市不能为空", trigger: "blur" },
         ]
-      }
+      },
+      server: [  ],
     }
   },
   created() {
@@ -272,7 +277,7 @@ export default {
     /** 上传头像按钮操作 */
     handleUpdateAvatar(row) {
       console.log(row)
-      this.dialogUpdateAvatarVisible = true;
+      this.upload.open = true;
     },
     /** 每页大小 */
     handleSizeChange(val) {
@@ -324,12 +329,27 @@ export default {
         }
       })
     },
-    handleAvatarSuccess() {
-
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
     },
-    beforeAvatarUpload() {
-
-    }
+    beforeAvatarUpload(file) {
+      const isType = file.type === 'image/jpeg' || 'image/jpg' || 'image/webp' || 'image/png';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isType) {
+        this.$message.error("上传头像图片只包含 JPG,PNG,WEBP,JPEG 格式！");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片不能超过 2MB");
+      }
+      return isType && isLt2M;
+    },
+    submitFileForm() {
+      this.$refs.cropper.getCropBlob(data => {
+        let formData = new FormData();
+        formData.append("avatarfile", data);
+        console.log(formData);
+      })
+    },
   }
 }
 </script>
