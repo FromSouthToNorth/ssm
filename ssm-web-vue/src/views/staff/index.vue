@@ -359,7 +359,7 @@ export default {
   margin-top: 40px;
   margin-left: auto;
   margin-right: auto;
-  width: 880px;
+  width: 1124px;
 }
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;

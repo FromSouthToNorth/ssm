@@ -9,7 +9,7 @@ import Staff from "@/views/staff/index";
 export default {
   name: 'App',
   components: {
-    Staff
+    Staff,
   }
 }
 </script>

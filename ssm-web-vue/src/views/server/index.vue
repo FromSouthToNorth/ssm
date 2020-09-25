@@ -134,39 +134,58 @@
         </el-card>
       </el-col>
 
-<!--      <el-col :span="24" class="card-box">-->
-<!--        <el-card>-->
-<!--          <div slot="header">-->
-<!--            <span>磁盘状态</span>-->
-<!--          </div>-->
-<!--          <div class="el-table el-table&#45;&#45;enable-row-hover el-table&#45;&#45;medium">-->
-<!--            <table cellspacing="0" style="width: 100%;">-->
-<!--              <thead>-->
-<!--              <tr>-->
-<!--                <th class="is-leaf"><div class="cell">盘符路径</div></th>-->
-<!--                <th class="is-leaf"><div class="cell">文件系统</div></th>-->
-<!--                <th class="is-leaf"><div class="cell">盘符类型</div></th>-->
-<!--                <th class="is-leaf"><div class="cell">总大小</div></th>-->
-<!--                <th class="is-leaf"><div class="cell">可用大小</div></th>-->
-<!--                <th class="is-leaf"><div class="cell">已用大小</div></th>-->
-<!--                <th class="is-leaf"><div class="cell">已用百分比</div></th>-->
-<!--              </tr>-->
-<!--              </thead>-->
-<!--              <tbody v-if="server.sysFiles">-->
-<!--                <tr v-for="sysFile in server.sysFiles">-->
-<!--                  <td><div class="cell">{{ sysFile.dirName }}</div></td>-->
-<!--                  <td><div class="cell">{{ sysFile.sysTypeName }}</div></td>-->
-<!--                  <td><div class="cell">{{ sysFile.typeName }}</div></td>-->
-<!--                  <td><div class="cell">{{ sysFile.total }}</div></td>-->
-<!--                  <td><div class="cell">{{ sysFile.free }}</div></td>-->
-<!--                  <td><div class="cell">{{ sysFile.used }}</div></td>-->
-<!--                  <td><div class="cell" :class="{'text-danger': sysFile.usage > 80}">{{ sysFile.usage }}%</div></td>-->
-<!--                </tr>-->
-<!--              </tbody>-->
-<!--            </table>-->
-<!--          </div>-->
-<!--        </el-card>-->
-<!--      </el-col>-->
+      <el-col :span="24" class="card-box">
+        <el-card>
+          <div slot="header">
+            <span>磁盘状态</span>
+          </div>
+          <div class="el-table el-table--enable-row-hover el-table--medium">
+            <el-table
+                :data="server.sysFiles"
+                style="width: 100%">
+              <el-table-column
+                  prop="dirName"
+                  label="盘符路径">
+              </el-table-column>
+              <el-table-column
+                  prop="sysTypeName"
+                  label="文件系统">
+              </el-table-column>
+              <el-table-column
+                  prop="typeName"
+                  label="盘符类型">
+              </el-table-column>
+              <el-table-column
+                  prop="total"
+                  label="总大小">
+              </el-table-column>
+              <el-table-column
+                  prop="free"
+                  label="可用大小">
+              </el-table-column>
+              <el-table-column
+                  prop="used"
+                  label="已用大小">
+              </el-table-column>
+              <el-table-column
+                  prop="usage"
+                  label="已用百分比">
+              </el-table-column>
+              <el-table-column
+                  prop="usage"
+                  label="已用百分比"
+                  width="100"
+                  filter-placement="bottom-end">
+                <template slot-scope="scope">
+                  <el-tag
+                      :type="scope.row.usage > 80 ? 'danger' : 'success'"
+                      disable-transitions>{{scope.row.usage}} %</el-tag>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
