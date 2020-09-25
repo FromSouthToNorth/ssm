@@ -22,7 +22,7 @@ public class AddressAPI extends BaseController {
     /**
      * 查询地址列表
      */
-    @GetMapping(value = "/list")
+    @GetMapping("/list")
     @ResponseBody
     public Result addressList() {
         List<AddressVO> addressVOS = addressService.selectAddress();

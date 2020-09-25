@@ -9,6 +9,7 @@ import com.hy.ssm.utils.StringUtils;
 import com.hy.ssm.vo.StaffVO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,7 +25,7 @@ public class StaffAPI extends BaseController {
     /**
      * 获取员工列表
      */
-    @GetMapping(value = "/list")
+    @GetMapping("/list")
     @ResponseBody
     public TableDataInfo getAllStaff(Staff staff) {
         // 封装分页请求数据
@@ -68,10 +69,20 @@ public class StaffAPI extends BaseController {
     /**
      * 删除用户
      */
-    @DeleteMapping(value = "/{staffId}")
+    @DeleteMapping("/{staffId}")
     @ResponseBody
     public Result delete(@PathVariable Long staffId) {
         return toAjax(staffService.deleteStaffById(staffId));
+    }
+
+    /**
+     * 上传头像
+     */
+    @PostMapping("/updateAvatar")
+    @ResponseBody
+    public Result updateAvatar(MultipartFile file, boolean updateSupport) {
+        System.out.println(file);
+        return null;
     }
 
 }
