@@ -1,9 +1,11 @@
 package com.hy.ssm.api;
 
+import com.hy.ssm.annotation.Log;
 import com.hy.ssm.core.controller.BaseController;
 import com.hy.ssm.core.page.TableDataInfo;
 import com.hy.ssm.dto.Result;
 import com.hy.ssm.entity.Staff;
+import com.hy.ssm.enums.BusinessType;
 import com.hy.ssm.service.StaffService;
 import com.hy.ssm.utils.StringUtils;
 import com.hy.ssm.vo.StaffVO;
@@ -39,6 +41,7 @@ public class StaffAPI extends BaseController {
      */
     @PostMapping
     @ResponseBody
+    @Log(title = "员工管理", businessType = BusinessType.INSERT)
     public Result add(@Validated @RequestBody Staff staff) {
         return toAjax(staffService.insertStaff(staff));
     }
@@ -61,6 +64,7 @@ public class StaffAPI extends BaseController {
      */
     @PutMapping
     @ResponseBody
+    @Log(title = "员工管理", businessType = BusinessType.UPDATE)
     public Result edit(@Validated @RequestBody Staff staff) {
         System.out.println(staff);
         return toAjax(staffService.updateStaff(staff));
@@ -71,6 +75,7 @@ public class StaffAPI extends BaseController {
      */
     @DeleteMapping("/{staffId}")
     @ResponseBody
+    @Log(title = "员工管理", businessType = BusinessType.DELETE)
     public Result delete(@PathVariable Long staffId) {
         return toAjax(staffService.deleteStaffById(staffId));
     }
