@@ -39,9 +39,9 @@ public class StaffAPI extends BaseController {
     /**
      * 新增员工
      */
+    @Log(title = "员工管理", businessType = BusinessType.INSERT)
     @PostMapping
     @ResponseBody
-    @Log(title = "员工管理", businessType = BusinessType.INSERT)
     public Result add(@Validated @RequestBody Staff staff) {
         return toAjax(staffService.insertStaff(staff));
     }
@@ -62,9 +62,9 @@ public class StaffAPI extends BaseController {
     /**
      * 修改用户
      */
+    @Log(title = "员工管理", businessType = BusinessType.UPDATE)
     @PutMapping
     @ResponseBody
-    @Log(title = "员工管理", businessType = BusinessType.UPDATE)
     public Result edit(@Validated @RequestBody Staff staff) {
         System.out.println(staff);
         return toAjax(staffService.updateStaff(staff));
@@ -73,9 +73,9 @@ public class StaffAPI extends BaseController {
     /**
      * 删除用户
      */
+    @Log(title = "员工管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{staffId}")
     @ResponseBody
-    @Log(title = "员工管理", businessType = BusinessType.DELETE)
     public Result delete(@PathVariable Long staffId) {
         return toAjax(staffService.deleteStaffById(staffId));
     }
