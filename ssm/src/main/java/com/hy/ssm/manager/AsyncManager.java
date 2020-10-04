@@ -7,6 +7,9 @@ import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 异步任务管理器
+ */
 public class AsyncManager {
 
     /**
@@ -32,6 +35,8 @@ public class AsyncManager {
 
     /**
      * 执行任务
+     *
+     * @param task 任务
      */
     public void execute(TimerTask task) {
         executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
