@@ -107,4 +107,19 @@ public class Logininfor {
     public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
     }
+
+    @Override
+    public String toString() {
+        return "Logininfor{" +
+                "infoId=" + infoId +
+                ", userName='" + userName + '\'' +
+                ", status='" + status + '\'' +
+                ", ipaddr='" + ipaddr + '\'' +
+                ", loginLocation='" + loginLocation + '\'' +
+                ", browser='" + browser + '\'' +
+                ", os='" + os + '\'' +
+                ", msg='" + msg + '\'' +
+                ", loginTime=" + loginTime +
+                '}';
+    }
 }

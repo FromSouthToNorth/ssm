@@ -2,6 +2,7 @@ package com.hy.ssm.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -196,5 +197,28 @@ public class OperLog {
 
     public void setOperTime(Date operTime) {
         this.operTime = operTime;
+    }
+
+    @Override
+    public String toString() {
+        return "OperLog{" +
+                "operId=" + operId +
+                ", title='" + title + '\'' +
+                ", businessType=" + businessType +
+                ", businessTypes=" + Arrays.toString(businessTypes) +
+                ", method='" + method + '\'' +
+                ", requestMethod='" + requestMethod + '\'' +
+                ", operatorType=" + operatorType +
+                ", operName='" + operName + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", operUrl='" + operUrl + '\'' +
+                ", operIp='" + operIp + '\'' +
+                ", operLocation='" + operLocation + '\'' +
+                ", operParam='" + operParam + '\'' +
+                ", jsonResult='" + jsonResult + '\'' +
+                ", status=" + status +
+                ", errorMsg='" + errorMsg + '\'' +
+                ", operTime=" + operTime +
+                '}';
     }
 }

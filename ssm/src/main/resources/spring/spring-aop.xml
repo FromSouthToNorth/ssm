@@ -13,7 +13,7 @@
          2.切入点
          3.组装切面
     -->
-    <bean id="aspect" class="com.hy.ssm.aspectj.LogAspect" />
+    <bean class="com.hy.ssm.aspectj.LogAspect" />
 
     <!-- 告知 spring 基于注解进行 aop 编程 -->
     <aop:aspectj-autoproxy />
