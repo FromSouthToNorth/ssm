@@ -8,8 +8,11 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
-public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
+@Component
+public final class SpringUtils implements
+        BeanFactoryPostProcessor, ApplicationContextAware {
 
     /** Spring应用上下文环境 */
     private static ConfigurableListableBeanFactory beanFactory;

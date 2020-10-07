@@ -87,7 +87,8 @@ public class LogAspect {
             // 处理设置注解上的参数
             getControllerMethodDescription(joinPoint, controllerLog, operLog);
             // 保存数据库
-            AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
+            AsyncManager asyncManager = new AsyncManager();
+            asyncManager.execute(AsyncFactory.recordOper(operLog));
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("==前置通知异常==");
@@ -151,15 +152,11 @@ public class LogAspect {
     /**
      * 参数拼装
      */
-    private String argsArrayToString(Object[] paramsArray)
-    {
+    private String argsArrayToString(Object[] paramsArray) {
         String params = "";
-        if (paramsArray != null && paramsArray.length > 0)
-        {
-            for (int i = 0; i < paramsArray.length; i++)
-            {
-                if (!isFilterObject(paramsArray[i]))
-                {
+        if (paramsArray != null && paramsArray.length > 0) {
+            for (int i = 0; i < paramsArray.length; i++) {
+                if (!isFilterObject(paramsArray[i])) {
                     Object jsonObj = JSON.toJSON(paramsArray[i]);
                     params += jsonObj.toString() + " ";
                 }

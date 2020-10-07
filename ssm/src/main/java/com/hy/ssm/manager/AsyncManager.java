@@ -24,13 +24,13 @@ public class AsyncManager {
     /**
      * 单例模式
      */
-    private AsyncManager() {}
-
-    private static AsyncManager me = new AsyncManager();
-
-    public static AsyncManager me() {
-        return me;
-    }
+//    private AsyncManager() {}
+//
+//    private static AsyncManager me = new AsyncManager();
+//
+//    public static AsyncManager me() {
+//        return me;
+//    }
 
     /**
      * 执行任务
@@ -38,6 +38,7 @@ public class AsyncManager {
      * @param task 任务
      */
     public void execute(TimerTask task) {
+        System.out.println(executor);
         executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
     }
 
